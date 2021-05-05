@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="./dist/Chatroom.css">
-    <link rel="stylesheet" type="text/css" href="./index.css">
-    <title>Chatroom Example</title>
-  </head>
-  <body>
-    <div class="chat-container"></div>
-    <script src="./dist/Chatroom.js"></script>
-    <script type="text/javascript">
-window.chatroom = new window.Chatroom({
-  title: "Chat with a bot",
-  container: document.querySelector(".chat-container"),
-  welcomeMessage: "Nice to meet you.",
-  host: "http://localhost:5005",
-  speechRecognition: "en-US",
-  voiceLang: "en-US"
-});
-window.chatroom.openChat();
-</script>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="./dist/Chatroom.css">
+  <link rel="stylesheet" type="text/css" href="./index.css">
+  <title>MiBot Test</title>
+</head>
+
+<body>
+  <div class="chat-container"></div>
+  <script src="./dist/Chatroom.js"></script>
+  <script type="text/javascript">
+    window.chatroom = new window.Chatroom({
+      title: "Chat con MiBot",
+      container: document.querySelector(".chat-container"),
+      welcomeMessage: "Hola soy MiBot!",
+      host: "http://be-mibot.herokuapp.com",
+      speechRecognition: "en-US",
+      voiceLang: "en-US"
+    });
+    window.chatroom.openChat();
+  </script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="/__/firebase/8.4.3/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="/__/firebase/8.4.3/firebase-analytics.js"></script>
+
+  <!-- Initialize Firebase -->
+  <script src="/__/firebase/init.js"></script>
+</body>
+
 </html>

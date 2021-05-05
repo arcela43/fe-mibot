@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="./dist/Chatroom.css">
-    <style>
-* {
-  font-family: "Open Sans", Helvetica, "Helvetica Neue", sans-serif;
-  box-sizing: border-box;
-}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="./dist/Chatroom.css">
+  <style>
+    * {
+      font-family: "Open Sans", Helvetica, "Helvetica Neue", sans-serif;
+      box-sizing: border-box;
+    }
   </style>
-    <title>Chatroom Debugger</title>
-  </head>
-  <body>
-    <div class="chat-container"></div>
-    <script src="./dist/Chatroom.js"></script>
-    <script type="text/javascript">
-window.chatroom = new window.DebugChatroom({
-  title: "Chatea con MiBot",
-  container: document.querySelector(".chat-container"),
-  welcomeMessage: "Nice to meet you.",
-  host: "http://localhost:5002",
-  speechRecognition: "en-US",
-});
-</script>
-  </body>
+  <title>Chatroom Debugger</title>
+</head>
+
+<body>
+  <div class="chat-container"></div>
+  <script src="./dist/Chatroom.js"></script>
+  <script type="text/javascript">
+    window.chatroom = new window.DebugChatroom({
+      title: "Chat con MiBot",
+      container: document.querySelector(".chat-container"),
+      welcomeMessage: "Hola! Soy MiBot - Debug Mode.",
+      host: "http://be-mibot.herokuapp.com",
+      speechRecognition: "en-US",
+    });
+  </script>
+</body>
+
 </html>
