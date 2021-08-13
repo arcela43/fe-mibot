@@ -15,13 +15,13 @@ type ConnectedChatroomProps = {
   speechRecognition: ?string,
   messageBlacklist: Array<string>,
   fetchOptions?: RequestOptions,
-  voiceLang: ?string
+  voiceLang: ?string,
 };
 type ConnectedChatroomState = {
   messages: Array<ChatMessage>,
   messageQueue: Array<ChatMessage>,
   isOpen: boolean,
-  waitingForBotResponse: boolean
+  waitingForBotResponse: boolean,
 };
 
 type RasaMessage =
@@ -29,7 +29,7 @@ type RasaMessage =
   | {|
       sender_id: string,
       buttons: Array<{ title: string, payload: string, selected?: boolean }>,
-      text?: string
+      text?: string,
     |}
   | {| sender_id: string, image: string, text?: string |}
   | {| sender_id: string, attachment: string, text?: string |};
@@ -42,12 +42,12 @@ export default class ConnectedChatroom extends Component<
     messages: [],
     messageQueue: [],
     isOpen: false,
-    waitingForBotResponse: false
+    waitingForBotResponse: false,
   };
 
   static defaultProps = {
     waitingTimeout: 5000,
-    messageBlacklist: ["_restart", "_start", "/restart", "/start"]
+    messageBlacklist: ["_restart", "_start", "/restart", "/start"],
   };
 
   waitingForBotResponseTimer: ?TimeoutID = null;
@@ -66,7 +66,7 @@ export default class ConnectedChatroom extends Component<
         message: { type: "text", text: this.props.welcomeMessage },
         time: Date.now(),
         username: "bot",
-        uuid: uuidv4()
+        uuid: uuidv4(),
       };
       this.setState({ messages: [welcomeMessage] });
     }
@@ -90,7 +90,7 @@ export default class ConnectedChatroom extends Component<
       message: { type: "text", text: messageText },
       time: Date.now(),
       username: this.props.userId,
-      uuid: uuidv4()
+      uuid: uuidv4(),
     };
 
     if (!this.props.messageBlacklist.includes(messageText)) {
@@ -99,9 +99,9 @@ export default class ConnectedChatroom extends Component<
         messages: [
           ...this.state.messages,
           ...this.state.messageQueue,
-          messageObj
+          messageObj,
         ],
-        messageQueue: []
+        messageQueue: [],
       });
     }
 
@@ -115,16 +115,20 @@ export default class ConnectedChatroom extends Component<
 
     const rasaMessageObj = {
       message: messageObj.message.text,
-      sender: this.props.userId
+      sender: this.props.userId,
     };
 
-    const fetchOptions = Object.assign({}, {
-      method: "POST",
-      body: JSON.stringify(rasaMessageObj),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }, this.props.fetchOptions);
+    const fetchOptions = Object.assign(
+      {},
+      {
+        method: "POST",
+        body: JSON.stringify(rasaMessageObj),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      this.props.fetchOptions
+    );
 
     const response = await fetch(
       `${this.props.host}/webhooks/rest/webhook`,
@@ -144,7 +148,7 @@ export default class ConnectedChatroom extends Component<
       message: botMessageObj,
       time: Date.now(),
       username: "bot",
-      uuid: uuidv4()
+      uuid: uuidv4(),
     };
   }
 
@@ -154,7 +158,7 @@ export default class ConnectedChatroom extends Component<
     let expandedMessages = [];
 
     RasaMessages.filter((message: RasaMessage) =>
-      validMessageTypes.some(type => type in message)
+      validMessageTypes.some((type) => type in message)
     ).forEach((message: RasaMessage) => {
       let validMessage = false;
       if (message.text) {
@@ -194,7 +198,7 @@ export default class ConnectedChatroom extends Component<
     const messageQueue = [...this.state.messageQueue, ...expandedMessages];
     this.setState({
       messageQueue,
-      waitingForBotResponse: messageQueue.length > 0
+      waitingForBotResponse: messageQueue.length > 0,
     });
   }
 
@@ -208,7 +212,7 @@ export default class ConnectedChatroom extends Component<
       this.setState({
         messages: [...messages, message],
         messageQueue,
-        waitingForBotResponse
+        waitingForBotResponse,
       });
     }
   };
@@ -236,7 +240,7 @@ export default class ConnectedChatroom extends Component<
 
     const renderableMessages = messages
       .filter(
-        message =>
+        (message) =>
           message.message.type !== "text" ||
           !this.props.messageBlacklist.includes(message.message.text)
       )

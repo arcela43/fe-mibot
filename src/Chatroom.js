@@ -18,16 +18,16 @@ const GROUP_INTERVAL = 60000;
 export type MessageType =
   | {
       type: "text",
-      text: string
+      text: string,
     }
   | { type: "image", image: string }
   | {
       type: "button",
-      buttons: Array<{ payload: string, title: string, selected?: boolean }>
+      buttons: Array<{ payload: string, title: string, selected?: boolean }>,
     }
   | {
       type: "custom",
-      content: any
+      content: any,
     };
 
 export type ChatMessage = {
@@ -35,7 +35,7 @@ export type ChatMessage = {
   username: string,
   time: number,
   uuid: string,
-  voiceLang?: string
+  voiceLang?: string,
 };
 
 const WaitingBubble = () => (
@@ -44,7 +44,7 @@ const WaitingBubble = () => (
   </li>
 );
 
-const MessageGroup = ({ messages, onButtonClick, voiceLang }) => {
+const MessageGroup = ({ messages, toogleChat, onButtonClick, voiceLang }) => {
   const isBot = messages[0].username === "bot";
   const isButtonGroup =
     messages.length === 1 && messages[0].message.type === "button";
@@ -56,6 +56,7 @@ const MessageGroup = ({ messages, onButtonClick, voiceLang }) => {
           key={i}
           onButtonClick={onButtonClick}
           voiceLang={voiceLang}
+          toogleChat={toogleChat}
         />
       ))}
       {!isButtonGroup ? (
@@ -74,16 +75,16 @@ type ChatroomProps = {
   onButtonClick: (message: string, payload: string) => *,
   onSendMessage: (message: string) => *,
   onToggleChat: () => *,
-  voiceLang: ?string
+  voiceLang: ?string,
 };
 
 type ChatroomState = {
-  inputValue: string
+  inputValue: string,
 };
 
 export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
   state = {
-    inputValue: ""
+    inputValue: "",
   };
   lastRendered: number = 0;
   chatsRef = React.createRef<HTMLDivElement>();
@@ -185,7 +186,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
     scrollToEnd: boolean = false
   ) => {
     await this.setState({
-      inputValue
+      inputValue,
     });
     if (scrollToEnd) {
       const inputRef = this.getInputRef();
@@ -197,7 +198,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
   render() {
     const { messages, isOpen, waitingForBotResponse, voiceLang } = this.props;
     const messageGroups = this.groupMessages(messages);
-    const isClickable = i =>
+    const isClickable = (i) =>
       !waitingForBotResponse && i == messageGroups.length - 1;
 
     return (
@@ -211,6 +212,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
               onButtonClick={
                 isClickable(i) ? this.handleButtonClick : undefined
               }
+              toogleChat={this.props.onToggleChat}
               voiceLang={voiceLang}
             />
           ))}
@@ -220,19 +222,19 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
           <input
             type="text"
             value={this.state.inputValue}
-            onChange={event =>
+            onChange={(event) =>
               this.handleInputChange(event.currentTarget.value)
             }
             ref={this.inputRef}
           />
-          <input type="submit" value="Submit" />
-          {this.props.speechRecognition != null ? (
+          <input type="submit" value="Enviar" />
+          {/* {this.props.speechRecognition != null ? (
             <SpeechInput
               language={this.props.speechRecognition}
               onSpeechInput={message => this.handleInputChange(message, true)}
               onSpeechEnd={this.handleSubmitMessage}
             />
-          ) : null}
+          ) : null} */}
         </form>
       </div>
     );
