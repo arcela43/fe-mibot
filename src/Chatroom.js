@@ -203,7 +203,10 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
 
     return (
       <div className={classnames("chatroom", isOpen ? "open" : "closed")}>
-        <h3 onClick={this.props.onToggleChat}>{this.props.title}</h3>
+        <div className="chat_header">
+          <img width="20%" src="/src/assets/MiBot-200x200-der.png"></img>
+          <h3 width="80%" onClick={this.props.onToggleChat}>{this.props.title}</h3>
+        </div>
         <div className="chats" ref={this.chatsRef}>
           {messageGroups.map((group, i) => (
             <MessageGroup

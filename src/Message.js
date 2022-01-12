@@ -18,10 +18,10 @@ export const MessageTime = ({ time, isBot }: MessageTimeProps) => {
   const messageTimeObj = new Date(messageTime);
   return (
     <li
-      className={classnames("time", isBot ? "left" : "right")}
-      title={messageTimeObj.toISOString()}
+      // className={classnames("time", isBot ? "left" : "right")}
+      // title={messageTimeObj.toISOString()}
     >
-      {formatDistance(messageTimeObj, Date.now())}
+      {/* {formatDistance(messageTimeObj, Date.now())} */}
     </li>
   );
 };
@@ -65,12 +65,13 @@ const Message = ({
   }, []);
 
   // Aca empieza la activación de Genesys
-  // if (message.text.substring(0,4) === "Dame") {
-  if (message.text === "¡Bienvenido! Soy MiBot, tu asistente digital Movistar. Indícame tu requerimiento") {
+  if (message.text.substring(0,4) === "Dame") {
+  // if (message.text === "¡Bienvenido! Soy MiBot, tu asistente digital Movistar. Indícame tu requerimiento") {
     toogleChat();
     // alert('Genesys')
     // window.getAdvancedConfig('Test','Testing','test@test.com','Prueba')
-    customPlugin.command('WebChat.open', getAdvancedConfig('Test','Testing','test@test.com','Prueba'))
+    // customPlugin.command('WebChat.open', getAdvancedConfig('Test','Testing','test@test.com','Prueba'))
+    customPlugin.command('WebChat.open', getAdvancedConfig('','','',''))
     // $(".chatroom").hide()
   }
 

@@ -12,20 +12,144 @@
 <body>
   <div class="chat-container"></div>
   <script src="./dist/Chatroom.js"></script>
+  <script src="https://apps.mypurecloud.com/widgets/9.0/cxbus.min.js"
+    onload="javascript:CXBus.configure({debug:false,pluginsPath:`https://apps.mypurecloud.com/widgets/9.0/plugins/`}); CXBus.loadPlugin('widgets-core');"></script>
+
   <script type="text/javascript">
     window.chatroom = new window.Chatroom({
-      title: "Chat con MiBot",
+      title: "MiBot",
       container: document.querySelector(".chat-container"),
-      welcomeMessage: "Hola soy MiBot!",
+      welcomeMessage: "Hola! Soy MiBot, tu asistente digital Movistar, ¿En que te puedo ayudar? Puedo canalizar tus dudas sobre recargas, saldos, deudas, pago de facturas, planes y servicios en tu línea, planes y servicios de Movistar, información en Agentes Autorizados, o decirme si estás experimentando algún inconveniente con tu línea.",
       // host: "http://be-mibot.herokuapp.com",
-      host: "http://34.132.11.155:5005",
+      // host: "http://34.132.11.155:5005",
+      host: "http://localhost:5002",
       speechRecognition: "en-US",
       voiceLang: "en-US"
     });
-    // window.chatroom.openChat();
+    window.chatroom.openChat();
   </script>
-  <button onclick="window.chatroom.openChat();"><img src="src/assets/Toolkit-MiBot-720-Feliz.png" alt="mibot"
-      width="100"></button>
+  <!-- <button onclick="window.chatroom.openChat();"><img src="src/assets/Toolkit-MiBot-720-Feliz.png" alt="mibot" -->
+  <!-- width="100"></button> -->
+
+
+  <!-- GENESYS -->
+
+  <!--Create a Widgets configuration object-->
+  <script type="text/javascript">
+
+    window._genesys = {
+      widgets: {
+        webchat: {
+          transport: {
+            type: 'purecloud-v2-sockets',
+            dataURL: 'https://api.mypurecloud.com',
+            deploymentKey: 'YOUR_DEPLOYMENTKEY_HERE',
+            orgGuid: 'YOUR_ORGGUID_HERE',
+            interactionData: {
+              routing: {
+                targetType: 'QUEUE',
+                targetAddress: 'YOUR_QUEUENAME_HERE',
+                priority: 2
+              }
+            }
+          },
+          userData: {
+            addressStreet: '64472 Brown Street',
+            addressCity: 'Lindgrenmouth',
+            addressPostalCode: '50163-2735',
+            addressState: 'FL',
+            phoneNumber: '1-916-892-2045 x293',
+            phoneType: 'Cell',
+            customerId: '59606',
+            // These fields should be provided via advanced configuration
+            // firstName: 'Praenomen',
+            // lastName: 'Gens',
+            // email: 'praenomen.gens@calidumlitterae.com',
+            // subject: 'Chat subject'
+          }
+        }
+      }
+    };
+
+  </script>
+  <script type="text/javascript">
+
+    const customPlugin = CXBus.registerPlugin('Custom');
+
+    customPlugin.subscribe('WebChatService.started', function (e) {
+      console.log('Chat started', e);
+    });
+
+    customPlugin.subscribe('WebChatService.ended', function (e) {
+      console.log('Chat ended', e);
+    });
+
+    function getAdvancedConfig(firstname, lastname, email, subject) {
+      return {
+        form: {
+          autoSubmit: false,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          subject: subject
+        },
+        // form: {
+        // 	autoSubmit: false,
+        // 	firstname: 'Praenomen',
+        // 	lastname: 'Gens',
+        // 	email: 'praenomen.gens@calidumlitterae.com',
+        // 	subject: 'Populated from data'
+        // },
+        formJSON: {
+          wrapper: '<table></table>',
+          inputs: [
+            // Default fields
+            {
+              id: 'cx_webchat_form_firstname',
+              name: 'firstname',
+              maxlength: '100',
+              placeholder: 'Required',
+              label: 'First Name'
+            },
+            {
+              id: 'cx_webchat_form_lastname',
+              name: 'lastname',
+              maxlength: '100',
+              placeholder: 'Required',
+              label: 'Last Name'
+            },
+            {
+              id: 'cx_webchat_form_email',
+              name: 'email',
+              maxlength: '100',
+              placeholder: 'Optional',
+              label: 'Email'
+            },
+            {
+              id: 'cx_webchat_form_subject',
+              name: 'subject',
+              maxlength: '100',
+              placeholder: 'Optional',
+              label: 'Subject'
+            },
+            // Custom Fields
+            {
+              id: 'custom_field_1',
+              name: 'customField1',
+              maxlength: '100',
+              placeholder: 'Custom Data',
+              label: 'Custom Field 1',
+              value: 'My Custom Value'
+            }
+          ]
+        }
+      };
+    }
+  </script>
+  <button type="button" id="chat-button"
+    onclick="customPlugin.command('WebChat.open', getAdvancedConfig('','','',''));">Start
+    Chat (with data)</button>
+
   <script src="/__/firebase/8.4.3/firebase-app.js"></script>
   <script src="/__/firebase/8.4.3/firebase-analytics.js"></script>
   <script src="/__/firebase/init.js"></script>

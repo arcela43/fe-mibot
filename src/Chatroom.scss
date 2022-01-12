@@ -1,15 +1,16 @@
-$backgroundColor:white;
-$chromeColor: #5BC500;
+$backgroundColor: white;
+$chromeColor: #089df4;
 $chromeColor2: white;
 $chromeColor3: grey;
-$bubbleColor: #009BF2;
+$bubbleColor: #009bf2;
 $textColor: white;
 $linkColor: red;
-$timeStampsColor: #009BF2;
+$timeStampsColor: #009bf2;
+$greenColor: #5bc500;
 
 .chatroom {
   width: 100%;
-  height: 600px;
+  height: 700px;
   color: $textColor;
   max-height: 90vh;
   background-color: $backgroundColor;
@@ -45,11 +46,22 @@ $timeStampsColor: #009BF2;
     cursor: pointer;
   }
 
+  .chat_header {
+    align-items: center;
+    background-color: $chromeColor;
+    display: inline-flex;
+    width: 100%;
+
+    img {
+      padding: 5px;
+    }
+  }
+
   .chats {
     box-sizing: border-box;
     padding: 20px;
     margin: 0;
-    height: calc(100% - 80px);
+    height: calc(100% - 115px);
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 
@@ -76,6 +88,7 @@ $timeStampsColor: #009BF2;
       }
 
       &.right {
+        background-color: $greenColor;
         float: right;
         clear: both;
         border-bottom-right-radius: 0;
@@ -225,9 +238,9 @@ $timeStampsColor: #009BF2;
 
     input[type="submit"] {
       display: inline-block;
-      background: $chromeColor;
+      background: $greenColor;
       border: 1px solid $chromeColor2;
-      color: $chromeColor2;
+      color: white;
       height: 30px;
       min-width: 70px;
       line-height: 1;
