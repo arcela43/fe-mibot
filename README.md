@@ -1,26 +1,8 @@
-# React-based Chatroom Component for Rasa Stack
+# Chat de rasa para MiBiot
 
-[![CircleCI](https://circleci.com/gh/scalableminds/chatroom.svg?style=svg)](https://circleci.com/gh/scalableminds/chatroom)
-
-<a href="https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/demo.html"><img src="https://npm-scalableminds.s3.amazonaws.com/%40scalableminds/chatroom/demo.gif" alt="Demo" width="409" height="645" /></a>
-
-[Watch a demo of our Chatroom in action](https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/demo.html)
-
-## Features
-
-* React-based component
-* Supports Text with Markdown formatting, Images, and Buttons
-* Customizable with SASS variables
-* Generates a unique session id and keeps it in `sessionStorage`
-* Queues consecutive bot messages for better readability
-* Speech input (only in Chrome for now)
-* Text to Speech (only in Chrome for now)
-* Demo mode included (ideal for scripted screencasts)
-* Hosted on S3 for easy use
-* Simple setup. Works with Rasa's [REST channel](https://rasa.com/docs/rasa/user-guide/connectors/your-own-website/#rest-channels)
 
 ## Usage
-1. Embed the `chatroom.js` in the HTML of your website and configure it to connect to your Rasa bot. Either use the S3 hosted version or build it yourself. (see below)
+1. Colocar`chatroom.js` en el HTML
 
 ```html
 <head>
@@ -33,11 +15,11 @@
   <script type="text/javascript">
     var chatroom = new window.Chatroom({
       host: "http://localhost:5005",
-      title: "Chat with Mike",
+      title: "Chat con Mibot",
       container: document.querySelector(".chat-container"),
-      welcomeMessage: "Hi, I am Mike. How may I help you?",
-      speechRecognition: "en-US",
-      voiceLang: "en-US"
+      welcomeMessage: "Hola, soy MiBot, en que te ayudo?",
+      speechRecognition: "es-VE",
+      voiceLang: "es-VE"
     });
     chatroom.openChat();
   </script>
@@ -45,7 +27,7 @@
 ```
 
 
-2. In your Rasa bot setup, make sure to include the Rasa [REST channel](https://rasa.com/docs/rasa/user-guide/connectors/your-own-website/#rest-channels) in your `credentials.yml` file:
+2. Revisar [REST channel](https://rasa.com/docs/rasa/user-guide/connectors/your-own-website/#rest-channels) en `credentials.yml` :
 ```
 rest:
   # pass
@@ -72,13 +54,13 @@ Note, versions prior to `0.10.x` used a custom Python channel to connect the cha
 
 ## Development
 
-### Install dependencies
+### Install
 
 ```
 yarn install
 ```
 
-### Continuously build the Chatroom component
+### Continuously build 
 
 ```
 yarn watch
